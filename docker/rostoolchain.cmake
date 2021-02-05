@@ -9,7 +9,7 @@ set(CMAKE_C_COMPILER ${ARM_PREFIX}-gcc)
 set(CMAKE_CXX_COMPILER ${ARM_PREFIX}-g++)
 
 # maybe set to ros install
-set(CMAKE_SYSROOT /usr/local/${ARM_PREFIX})
+# set(CMAKE_SYSROOT /usr/local/${ARM_PREFIX})
 
 # $ENV{HOME}/2020RobotCode/zebROS_ws/install_isolated
 set(CMAKE_FIND_ROOT_PATH ${CMAKE_SYSROOT};)

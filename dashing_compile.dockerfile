@@ -16,16 +16,16 @@ RUN usermod -aG sudo build
 RUN echo "build:build" | chpasswd
 WORKDIR /home/build
 RUN chown -R build /home/build
-# Add user variable and copy toolchain build file
-ENV USER_HOME=/home/build
-COPY ./docker/* $USER_HOME
 # Install ROS2
+ENV USER_HOME=/home/build
 WORKDIR $USER_HOME/dashing_arm
 RUN rosinstall_generator ros_core ros_comm robot angles serial --rosdistro dashing --deps --wet-only > dashing-ros.rosinstall
 WORKDIR $USER_HOME/dashing_arm/src
 RUN touch .rosinstall
 RUN wstool merge ../dashing-ros.rosinstall
 RUN wstool update -j8
+# Copy toolchain build file
+COPY ./docker/* $USER_HOME
 
 # Compile (hopefully cross-compile soon)
 RUN colcon build --merge-install
