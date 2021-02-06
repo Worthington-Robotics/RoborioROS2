@@ -5,7 +5,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/New_York
 
 # Install curl and other important pre-tools
-RUN apt-get update && apt-get install -q -y --no-install-recommends curl gnupg2 lsb-release locales
+RUN apt-get update && apt-get install -q -y --no-install-recommends wget curl gnupg2 lsb-release locales
+# For building other libraries
+RUN apt-get update && apt-get -y --no-install-recommends install git libc6-i386 jstest-gtk meshlab cmake libprotobuf-dev libprotoc-dev protobuf-compiler ninja-build sip-dev python-empy libtinyxml2-dev libeigen3-dev
 # Install ROS packages
 RUN apt-get install -q -y --no-install-recommends python3-rosinstall-generator python3-wstool python3-rosinstall libasio-dev libssl-dev libtinyxml2-dev
 # Download Roborio toolchain
@@ -25,16 +27,17 @@ RUN touch .rosinstall
 RUN wstool merge ../dashing-ros.rosinstall
 RUN wstool update -j8
 # Copy toolchain build file
-COPY ./docker/* $USER_HOME
-
+COPY ./docker/ $USER_HOME
 # Compile (hopefully cross-compile soon)
-RUN colcon build --merge-install
-# RUN colcon build --merge-install \
-#     --cmake-force-configure \
-#     --cmake-args \
-#     -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/rostoolchain.cmake" \
-#     -DCMAKE_INSTALL_PREFIX="usr/local/arm-frc2021-linux-gnueabi /opt/ros/dashing" \
-#     -DCMAKE_BUILD_TYPE=Release
+# RUN colcon build --merge-install
+RUN $USER_HOME/lib/tinyxml2.sh
+
+RUN colcon build --merge-install \
+    --cmake-force-configure \
+    --cmake-args \
+    -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/rostoolchain.cmake" \
+    -DCMAKE_INSTALL_PREFIX="usr/arm-frc-linux-gnueabi /opt/ros/dashing" \
+    -DCMAKE_BUILD_TYPE=Release
 
 # Zip file
 # RUN ./zip.sh
