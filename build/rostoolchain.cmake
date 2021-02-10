@@ -3,16 +3,16 @@ set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 set(THREADS_PTHREAD_ARG 0)
 set(PYTHON_SOABI cpython-36m-arm-linux-gnueabihf)
-set(ARM_PREFIX arm-frc2021-linux-gnueabi)
+set(ARM_PREFIX arm-frc-linux-gnueabi)
 
 set(CMAKE_C_COMPILER ${ARM_PREFIX}-gcc)
 set(CMAKE_CXX_COMPILER ${ARM_PREFIX}-g++)
 
 # maybe set to ros install
-set(CMAKE_SYSROOT /usr/local/${ARM_PREFIX})
+set(CMAKE_SYSROOT /usr/${ARM_PREFIX})
 
 # $ENV{HOME}/2020RobotCode/zebROS_ws/install_isolated
-set(CMAKE_FIND_ROOT_PATH ${CMAKE_SYSROOT}; $ENV{HOME})
+set(CMAKE_FIND_ROOT_PATH opt/ros/dashing)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
