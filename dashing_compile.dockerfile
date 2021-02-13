@@ -15,7 +15,7 @@ RUN $USER_HOME/make_usr.sh
 RUN $USER_HOME/install_deps.sh
 
 # Install ROS2
-RUN ${USER_HOME}/setup_rosinstall.sh
+RUN $USER_HOME/setup_rosinstall.sh
 
 # Copy compiliation files
 COPY ./build/ $USER_HOME
@@ -23,12 +23,14 @@ COPY ./build/ $USER_HOME
 # Cross compile all dependents by calling all of the cross build scripts in lib 
 RUN $USER_HOME/crossbuild_all.sh
 
-# RUN colcon build --merge-install \
-#    --cmake-force-configure \
-#    --cmake-args \
-#    -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/rostoolchain.cmake" \
-#    -DCMAKE_INSTALL_PREFIX="usr/arm-frc-linux-gnueabi" \
-#    -DCMAKE_BUILD_TYPE=Release .
+WORKDIR $USER_HOME/dashing_arm
+
+RUN colcon build --merge-install \
+   --cmake-force-configure \
+   --cmake-args \
+   -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/rostoolchain.cmake" \
+   -DCMAKE_INSTALL_PREFIX="usr/arm-frc-linux-gnueabi" \
+   -DCMAKE_BUILD_TYPE=Release .
 
 # Zip file
 # RUN ./zip.sh
