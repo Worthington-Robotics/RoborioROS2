@@ -22,16 +22,16 @@ COPY ./build/cmake/ $USER_HOME/cmake/
 COPY ./build/compile-lib/ $USER_HOME/compile-lib/
 
 # Cross compile all dependents by calling all of the cross build scripts in lib 
-RUN $USER_HOME/setup/crossbuild_all.sh
+# RUN $USER_HOME/setup/crossbuild_all.sh
 
 WORKDIR $USER_HOME/dashing_arm
 
-# RUN colcon build --merge-install \
-#    --cmake-force-configure \
-#    --cmake-args \
-#    -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/cmake/arm-frc-gnueabi.toolchain.cmake" \
-#    -DCMAKE_INSTALL_PREFIX="$USER_HOME/arm-frc2021-linux-gnueabi/opt/ros/dashing" \
-#    -DCMAKE_BUILD_TYPE=Release .
+RUN colcon build --merge-install \
+   --cmake-force-configure \
+   --cmake-args \
+   -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/cmake/arm-frc-gnueabi.toolchain.cmake" \
+   -DCMAKE_INSTALL_PREFIX="$USER_HOME/arm-frc2021-linux-gnueabi/opt/ros/dashing" \
+   -DCMAKE_BUILD_TYPE=Release .
 
 # Zip file
 # RUN ./zip.sh
