@@ -4,24 +4,29 @@ FROM ros:dashing
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/New_York
 ENV USER_HOME=/home/build
-
-# Copy setup scripts
-COPY ./build/setup/ $USER_HOME/setup/
+# Because...
+ENV RTI_NC_LICENSE_ACCEPTED=yes
 
 # Create a build user and change to their directory
+COPY ./build/setup/make_usr.sh $USER_HOME/setup/make_usr.sh
 RUN $USER_HOME/setup/make_usr.sh
 
 # Install all dependencies
+COPY ./build/setup/install_deps.sh $USER_HOME/setup/install_deps.sh
 RUN $USER_HOME/setup/install_deps.sh
 
 # Install ROS2
+COPY ./build/setup/setup_rosinstall.sh $USER_HOME/setup/setup_rosinstall.sh
 RUN $USER_HOME/setup/setup_rosinstall.sh
 
 # Copy compiliation library scripts
 COPY ./build/cmake/ $USER_HOME/cmake/
 COPY ./build/compile-lib/ $USER_HOME/compile-lib/
 
+WORKDIR $USER_HOME/usr/arm-frc2021-linux-gnueabi
+
 # Cross compile all dependents by calling all of the cross build scripts in lib 
+COPY ./build/setup/crossbuild_all.sh $USER_HOME/setup/crossbuild_all.sh
 RUN $USER_HOME/setup/crossbuild_all.sh
 
 WORKDIR $USER_HOME/dashing_arm
@@ -31,9 +36,8 @@ RUN colcon build --merge-install \
    --cmake-args \
    -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/cmake/arm-frc-gnueabi.toolchain.cmake" \
    -DCMAKE_INSTALL_PREFIX="$USER_HOME/arm-frc2021-linux-gnueabi/opt/ros/dashing" \
-   -DCMAKE_BUILD_TYPE=Release .
+   -DCMAKE_BUILD_TYPE=Release \
+   -DBUILD_TESTING=OFF .
 
 # Zip file
 # RUN ./zip.sh
-
-
