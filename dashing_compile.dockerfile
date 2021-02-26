@@ -22,7 +22,7 @@ COPY ./build/cmake/ $USER_HOME/cmake/
 COPY ./build/compile-lib/ $USER_HOME/compile-lib/
 
 # Cross compile all dependents by calling all of the cross build scripts in lib 
-# RUN $USER_HOME/setup/crossbuild_all.sh
+RUN $USER_HOME/setup/crossbuild_all.sh
 
 WORKDIR $USER_HOME/dashing_arm
 
