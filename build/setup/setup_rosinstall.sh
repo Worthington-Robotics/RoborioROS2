@@ -1,14 +1,15 @@
 #!/bin/bash
-mkdir -p $USER_HOME/dashing_arm/src
-cd $USER_HOME/dashing_arm
+mkdir -p $USER_HOME/foxy_arm/src
+cd $USER_HOME/foxy_arm
 
 # Generate installation setup files
-rosinstall_generator ros_core ros_comm --rosdistro dashing --deps --wet-only > dashing-ros.rosinstall
-cd $USER_HOME/dashing_arm/src
+rosinstall_generator ros_core ros_comm --rosdistro foxy --deps --wet-only > foxy-ros.rosinstall
+cd $USER_HOME/foxy_arm/src
 touch .rosinstall
-wstool merge ../dashing-ros.rosinstall
+wstool merge ../foxy-ros.rosinstall
 wstool update -j8
-cd $USER_HOME/dashing_arm
-yes yes | rosdep init -y
-yes yes | rosdep update -y
-yes yes | rosdep install -i --from-path src --rosdistro dashing -y
+cd $USER_HOME/foxy_arm
+yes yes | rosdep install -i \
+    --from-paths src \
+    --rosdistro foxy -y \
+    --skip-keys "console_bridge fastcdr fastrtps libopensplice69 rti-connext-dds-5.3.1 urdfdom_headers"

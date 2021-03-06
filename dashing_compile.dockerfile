@@ -1,4 +1,4 @@
-FROM ros:dashing
+FROM ros:foxy
 
 # Set vars/locale (some of it probably isn't necessary)
 ARG DEBIAN_FRONTEND=noninteractive
@@ -26,18 +26,13 @@ COPY ./build/compile-lib/ $USER_HOME/compile-lib/
 WORKDIR $USER_HOME/usr/arm-frc2021-linux-gnueabi
 
 # Cross compile all dependents by calling all of the cross build scripts in lib 
-COPY ./build/setup/crossbuild_all.sh $USER_HOME/setup/crossbuild_all.sh
-RUN $USER_HOME/setup/crossbuild_all.sh
+COPY ./build/setup/crossbuild_libs.sh $USER_HOME/setup/crossbuild_libs.sh
+RUN $USER_HOME/setup/crossbuild_libs.sh
 
-WORKDIR $USER_HOME/dashing_arm
+WORKDIR $USER_HOME/foxy_arm
 
-RUN colcon build --merge-install \
-   --cmake-force-configure \
-   --cmake-args \
-   -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/cmake/arm-frc-gnueabi.toolchain.cmake" \
-   -DCMAKE_INSTALL_PREFIX="$USER_HOME/arm-frc2021-linux-gnueabi/opt/ros/dashing" \
-   -DCMAKE_BUILD_TYPE=Release \
-   -DBUILD_TESTING=OFF
+# COPY ./build/setup/crossbuild_all.sh $USER_HOME/setup/crossbuild_all.sh
+# RUN $USER_HOME/setup/crossbuild_all.sh
 
 # Zip file
 # RUN ./zip.sh
