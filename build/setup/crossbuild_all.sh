@@ -8,5 +8,5 @@ colcon build --merge-install \
    -DCMAKE_INSTALL_PREFIX="$USER_HOME/arm-frc2021-linux-gnueabi/opt/ros/foxy" \
    -DCMAKE_BUILD_TYPE=Release \
    -DBUILD_TESTING=OFF \
+   -Wno-dev \
    --no-warn-unused-cli
-

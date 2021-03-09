@@ -29,10 +29,21 @@ WORKDIR $USER_HOME/usr/arm-frc2021-linux-gnueabi
 COPY ./build/setup/crossbuild_libs.sh $USER_HOME/setup/crossbuild_libs.sh
 RUN $USER_HOME/setup/crossbuild_libs.sh
 
-WORKDIR $USER_HOME/foxy_arm
+# RUN cd $USER_HOME/foxy_arm \
+#     && . /opt/ros/foxy/setup.sh \
+#     && colcon build --merge-install \
+#    --cmake-force-configure \
+#    --cmake-args \
+#    -DCMAKE_TOOLCHAIN_FILE="$USER_HOME/cmake/arm-frc-gnueabi.toolchain.cmake" \
+#    -DCMAKE_INSTALL_PREFIX="$USER_HOME/arm-frc2021-linux-gnueabi/opt/ros/foxy" \
+#    -DCMAKE_BUILD_TYPE=Release \
+#    -DBUILD_TESTING=OFF \
+#    --no-warn-unused-cli \
+#     && source $USER_HOME/foxy_arm/install/setup.bash
 
-# COPY ./build/setup/crossbuild_all.sh $USER_HOME/setup/crossbuild_all.sh
-# RUN $USER_HOME/setup/crossbuild_all.sh
+WORKDIR $USER_HOME/foxy_arm
+COPY ./build/setup/crossbuild_all.sh $USER_HOME/setup/crossbuild_all.sh
+RUN $USER_HOME/setup/crossbuild_all.sh
 
 # Zip file
 # RUN ./zip.sh
