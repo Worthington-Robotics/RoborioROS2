@@ -1,0 +1,74 @@
+[submodule "src/ros2/rclcpp"]
+	path = src/ros2/rclcpp
+	url = https://github.com/ros2/rclcpp.git
+[submodule "src/ros_tooling/libstatistics_collector"]
+	path = src/ros_tooling/libstatistics_collector
+	url = https://github.com/ros-tooling/libstatistics_collector.git
+[submodule "src/ros2/rcl"]
+	path = src/ros2/rcl
+	url = https://github.com/ros2/rcl.git
+	branch = galactic
+[submodule "src/ros2/rcpputils"]
+	path = src/ros2/rcpputils
+	url = https://github.com/ros2/rcpputils.git
+	branch = galactic
+[submodule "src/ros2/rcutils"]
+	path = src/ros2/rcutils
+	url = https://github.com/ros2/rcutils.git
+	branch = galactic
+[submodule "src/ros2/rmw"]
+	path = src/ros2/rmw
+	url = https://github.com/ros2/rmw.git
+	branch = galactic
+[submodule "src/ros2/rmw_cyclonedds"]
+	path = src/ros2/rmw_cyclonedds
+	url = https://github.com/ros2/rmw_cyclonedds.git
+	branch = galactic
+[submodule "src/ros2/common_interfaces"]
+	path = src/ros2/common_interfaces
+	url = https://github.com/ros2/common_interfaces.git
+	branch = galactic
+[submodule "src/ros2_tracing/ros2_tracing"]
+	path = src/ros2_tracing/ros2_tracing
+	url = https://gitlab.com/ros-tracing/ros2_tracing.git
+	branch = galactic
+[submodule "src/rosidl"]
+	path = src/rosidl
+	url = https://github.com/ros2/rosidl.git
+	branch = galactic
+[submodule "src/ros2/rosidl"]
+	path = src/ros2/rosidl
+	url = https://github.com/ros2/rosidl.git
+	branch = galactic
+[submodule "src/ros2/rcl_interfaces"]
+	path = src/ros2/rcl_interfaces
+	url = https://github.com/ros2/rcl_interfaces.git
+	branch = galactic
+[submodule "src/ros2/rcl_logging"]
+	path = src/ros2/rcl_logging
+	url = https://github.com/ros2/rcl_logging.git
+	branch = galactic
+[submodule "src/ros2/spdlog_vendor"]
+	path = src/ros2/spdlog_vendor
+	url = https://github.com/ros2/spdlog_vendor.git
+	branch = galactic
+[submodule "src/eclipse-cyclonedds/cyclonedds"]
+	path = src/eclipse-cyclonedds/cyclonedds
+	url = https://github.com/eclipse-cyclonedds/cyclonedds.git
+	branch = releases/0.8.x
+[submodule "src/eclipse-iceoryx/iceoryx"]
+	path = src/eclipse-iceoryx/iceoryx
+	url = https://github.com/eclipse-iceoryx/iceoryx.git
+	branch = release_1.0
+[submodule "src/ros2/performance_test_fixture"]
+	path = src/ros2/performance_test_fixture
+	url = https://github.com/ros2/performance_test_fixture.git
+	branch = main
+[submodule "src/ament/google_benchmark_vendor"]
+	path = src/ament/google_benchmark_vendor
+	url = https://github.com/ament/google_benchmark_vendor.git
+	branch = main
+[submodule "src/osrf/osrf_testing_tools_cpp"]
+	path = src/osrf/osrf_testing_tools_cpp
+	url = https://github.com/osrf/osrf_testing_tools_cpp.git
+	branch = master
