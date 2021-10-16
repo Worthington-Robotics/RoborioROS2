@@ -1,5 +1,10 @@
+# pull in cross root deps and compilier
+./cross_root/download_deps.sh
+
+# clean the last build if it exists
 rm -rf build install log
 
+# build it!
 colcon build \
 	--merge-install \
 	--cmake-args \
@@ -11,6 +16,12 @@ colcon build \
 	-DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN \
 	-DCMAKE_VERBOSE_MAKEFILE=ON
 
+tar cvf rclcpp_rio.tar ./install
+
+
+# This is for static building, but there seems to be an issue with cycloneDDS
+# itself that does not allow for static builds. The solution for now is to use
+# the shared library format, and make sure the rio has it installed.
 
 # WORKSPACE=$(pwd)
 # EXPORT_DIR=$WORKSPACE/librclcpp
