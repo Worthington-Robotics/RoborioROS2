@@ -72,3 +72,11 @@
 	path = src/osrf/osrf_testing_tools_cpp
 	url = https://github.com/osrf/osrf_testing_tools_cpp.git
 	branch = master
+[submodule "src/ament/ament_cmake"]
+	path = src/ament/ament_cmake
+	url = https://github.com/ament/ament_cmake.git
+	branch = galactic
+[submodule "src/ament/ament_package"]
+	path = src/ament/ament_package
+	url = https://github.com/ament/ament_package.git
+	branch = galactic
