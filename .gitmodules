@@ -80,3 +80,11 @@
 	path = src/ament/ament_package
 	url = https://github.com/ament/ament_package.git
 	branch = galactic
+[submodule "src/ament/ament_lint"]
+	path = src/ament/ament_lint
+	url = https://github.com/ament/ament_lint.git
+	branch = galactic
+[submodule "src/ament/ament_index"]
+	path = src/ament/ament_index
+	url = https://github.com/ament/ament_index.git
+	branch = galactic

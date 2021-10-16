@@ -4,24 +4,22 @@
 # clean the last build if it exists
 rm -rf build install log
 
-COMPILE_TOOLS_DIR=$(pwd)/roborio_toolchain
-TOOLCHAIN=$COMPILE_TOOLS_DIR/rio_toolchain.cmake
-COLCON_META=$COMPILE_TOOLS_DIR/colcon.meta
+TOOLCHAIN=$(pwd)/rio_toolchain.cmake
+COLCON_META=$(pwd)/colcon.meta
 
 # build it!
 colcon build \
 	--merge-install \
-    --metas $COLCON_META \
+    --metas ${COLCON_META} \
 	--cmake-args \
 	"--no-warn-unused-cli" \
-	-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
 	-DTHIRDPARTY=ON \
 	-DBUILD_TESTING=OFF \
 	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN \
+	-DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN} \
 	-DCMAKE_VERBOSE_MAKEFILE=ON
 
-tar cf rclcpp_rio.tar ./install
+#tar cf rclcpp_rio.tar ./install
 
 
 # This is for static building, but there seems to be an issue with cycloneDDS
