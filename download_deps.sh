@@ -1,15 +1,9 @@
 #!/bin/bash
 
-CURR_DIR=$(pwd)
-USER_HOME=$HOME
-
-if [[ -z $YEAR ]]; then
-    YEAR=2021
+if [[ -z $CROSS_ROOT ]]; then
+    echo "Cross root not set. Please specify a cross root"
+    exit -1
 fi
-
-ARM_PREFIX=arm-frc${YEAR}-linux-gnueabi
-WPI_DIR=${USER_HOME}/wpilib/${YEAR}
-
 
 downloadDep(){
     # make sure the release year and versions for the package match the opkg list on the RIO
@@ -26,7 +20,7 @@ downloadDep(){
     tar xf ./data.tar.${EXT}
 }
 
-pushd ${WPI_DIR}/roborio/${ARM_PREFIX} > /dev/null
+pushd ${CROSS_ROOT} > /dev/null
 
     rm -rf ./downloads
     mkdir ./downloads

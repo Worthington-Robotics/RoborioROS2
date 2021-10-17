@@ -33,6 +33,11 @@
                 "-DENABLE_TESTING=OFF",
                 "-DRCL_COMMAND_LINE_ENABLED=ON"
             ]
+        },
+        "cyclonedds": {
+            "cmake-args": [
+                "-DENABLE_SSL=NO"
+            ]
         }
     }
 }

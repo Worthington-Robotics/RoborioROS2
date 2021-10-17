@@ -119,3 +119,23 @@
 [submodule "cyclone_host/cyclonedds"]
 	path = cyclone_host/cyclonedds
 	url = https://github.com/eclipse-cyclonedds/cyclonedds.git
+[submodule "src/ros2/tinyxml2_vendor"]
+	path = src/ros2/tinyxml2_vendor
+	url = https://github.com/ros2/tinyxml2_vendor.git
+	branch = galactic
+[submodule "src/eprosima/Fast-DDS"]
+	path = src/eprosima/Fast-DDS
+	url = https://github.com/eProsima/Fast-DDS.git
+[submodule "src/eprosima/Fast-CDR"]
+	path = src/eprosima/Fast-CDR
+	url = https://github.com/eProsima/Fast-CDR.git
+[submodule "src/eprosima/foonathan_memory_vendor"]
+	path = src/eprosima/foonathan_memory_vendor
+	url = https://github.com/eProsima/foonathan_memory_vendor.git
+[submodule "src/ros2/rmw_fastrtps"]
+	path = src/ros2/rmw_fastrtps
+	url = https://github.com/ros2/rmw_fastrtps.git
+	branch = galactic
+[submodule "tinyxml2_target/tinyxml2"]
+	path = tinyxml2_target/tinyxml2
+	url = https://github.com/leethomason/tinyxml2.git
