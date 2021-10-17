@@ -1,6 +1,8 @@
 #!/bin/bash
 TINY_DIR=$(pwd)/tinyxml2_target/tinyxml2
 
+INSTALL_DIR=$(pwd)/install
+
 mkdir -p ${TINY_DIR}/build
 
 # Setup default arg for this function
@@ -31,7 +33,12 @@ pushd ${TINY_DIR}/build > /dev/null
     # Copy the library to the sysroot
     for file in libtinyxml*; do cp $file ${CROSS_ROOT}/lib; done
 
+    # Copy it into install too
+    for file in libtinyxml*; do cp $file ${INSTALL_DIR}/lib/; done
+
     # Copy the headerfile
     cp ../tinyxml2.h ${CROSS_ROOT}/usr/include
+
+    cp ../tinyxml2.h ${INSTALL_DIR}/include
 
 popd > /dev/null
