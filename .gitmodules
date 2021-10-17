@@ -139,3 +139,23 @@
 [submodule "tinyxml2_target/tinyxml2"]
 	path = tinyxml2_target/tinyxml2
 	url = https://github.com/leethomason/tinyxml2.git
+[submodule "src/ros2/rmw_dds_common"]
+	path = src/ros2/rmw_dds_common
+	url = https://github.com/ros2/rmw_dds_common.git
+	branch = galactic
+[submodule "src/ros2/rosidl_typesupport_fastrtps"]
+	path = src/ros2/rosidl_typesupport_fastrtps
+	url = https://github.com/ros2/rosidl_typesupport_fastrtps.git
+	branch = galactic
+[submodule "src/ros2/rosidl_typesupport"]
+	path = src/ros2/rosidl_typesupport
+	url = https://github.com/ros2/rosidl_typesupport.git
+	branch = galactic
+[submodule "src/ros/class_loader"]
+	path = src/ros/class_loader
+	url = https://github.com/ros/class_loader.git
+	branch = galactic
+[submodule "src/ros2/console_bridge_vendor"]
+	path = src/ros2/console_bridge_vendor
+	url = https://github.com/ros2/console_bridge_vendor.git
+	branch = galactic
