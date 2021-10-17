@@ -42,6 +42,23 @@ pushd ${CROSS_ROOT} > /dev/null
     downloadDep "openssl_1.0.2o-r0.16_cortexa9-vfpv3.ipk"
     downloadDep "openssl-dev_1.0.2o-r0.16_cortexa9-vfpv3.ipk"
 
+    # get libstdc++ 
+    downloadDep "libstdc++-dev_7.3.0-r0.16_cortexa9-vfpv3.ipk"
+    downloadDep "libstdc++6_7.3.0-r0.16_cortexa9-vfpv3.ipk"
+
+    # get libc
+    downloadDep "libc6_2.24-r0.79_cortexa9-vfpv3.ipk"
+    downloadDep "libc6-dev_2.24-r0.79_cortexa9-vfpv3.ipk"
+    downloadDep "libc6-extra-nss_2.24-r0.79_cortexa9-vfpv3.ipk"
+    downloadDep "linux-libc-headers-dev_4.15.7-r0.13_cortexa9-vfpv3.ipk"
+    downloadDep "libcidn1_2.24-r0.79_cortexa9-vfpv3.ipk"
+
+    # get libcrypto
+    downloadDep "libcrypto1.0.2_1.0.2o-r0.16_cortexa9-vfpv3.ipk"
+
+    # create symlink for pthread to pthreads (fixes fastrtps being dumb)
+    ln -s ${CROSS_ROOT}/lib/libpthread.so.0 ${CROSS_ROOT}/lib/libpthreads.so
+
     # get acl 
     downloadDep "acl_2.2.52-r0.183_cortexa9-vfpv3.ipk"
     downloadDep "acl-dbg_2.2.52-r0.183_cortexa9-vfpv3.ipk"

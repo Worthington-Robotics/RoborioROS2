@@ -38,6 +38,18 @@
             "cmake-args": [
                 "-DENABLE_SSL=NO"
             ]
+        },
+        "foonathan_memory_vendor": {
+            "cmake-args": [
+                "-DBUILD_MEMORY_TOOLS=OFF",
+                "-DBUILD_MEMORY_TESTS=OFF",
+                "-DBUILD_MEMORY_EXAMPLES=OFF"
+            ]
+        },
+        "fastrtps": {
+            "cmake-args": [
+                "-DCOMPILE_TOOLS=OFF"
+            ]
         }
     }
 }

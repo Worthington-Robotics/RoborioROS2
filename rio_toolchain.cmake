@@ -21,7 +21,7 @@ set(COMPILIER_DIR ${WPI_DIR}/roborio/bin/)
 
 find_program(CMAKE_C_COMPILER NAMES arm-frc2021-linux-gnueabi-gcc PATHS ${COMPILIER_DIR})
 find_program(CMAKE_CXX_COMPILER NAMES arm-frc2021-linux-gnueabi-g++ PATHS ${COMPILIER_DIR})
-find_program(CMAKE_LINKER NAMES arm-frc2021-linux-gnueabi-ld PATHS ${COMPILIER_DIR})
+find_program(CMAKE_LINKER NAMES arm-frc2021-linux-gnueabi-gcc PATHS ${COMPILIER_DIR})
 find_program(CMAKE_AR NAMES arm-frc2021-linux-gnueabi-ar PATHS ${COMPILIER_DIR})
 
 # message("Got C compilier at ${CMAKE_C_COMPILER}")
