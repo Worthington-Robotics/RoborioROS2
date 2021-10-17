@@ -1,8 +1,13 @@
+#!/bin/bash
+
 # pull in cross root deps and compilier
 #./roborio_toolchain/download_deps.sh
 
 # clean the last build if it exists
 rm -rf build install log
+
+# Build the host copy of cyclonedds to allow for config and message generation
+source ./build_host_cyclone.sh
 
 TOOLCHAIN=$(pwd)/rio_toolchain.cmake
 COLCON_META=$(pwd)/colcon.meta
@@ -10,7 +15,7 @@ COLCON_META=$(pwd)/colcon.meta
 # build it!
 colcon build \
 	--merge-install \
-    --metas ${COLCON_META} \
+	--metas ${COLCON_META} \
 	--cmake-args \
 	"--no-warn-unused-cli" \
 	-DTHIRDPARTY=ON \

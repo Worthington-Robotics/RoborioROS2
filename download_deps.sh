@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CURR_DIR=$(pwd)
 USER_HOME=$HOME
 
@@ -25,8 +27,6 @@ downloadDep(){
 }
 
 pushd ${WPI_DIR}/roborio/${ARM_PREFIX} > /dev/null
-
-    pwd
 
     rm -rf ./downloads
     mkdir ./downloads

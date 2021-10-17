@@ -116,3 +116,6 @@
 	path = src/ros2/rmw_implementation
 	url = https://github.com/ros2/rmw_implementation.git
 	branch = galactic
+[submodule "cyclone_host/cyclonedds"]
+	path = cyclone_host/cyclonedds
+	url = https://github.com/eclipse-cyclonedds/cyclonedds.git
