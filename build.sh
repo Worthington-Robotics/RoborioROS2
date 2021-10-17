@@ -32,7 +32,7 @@ fi
 
 # build it!
 echo "Executing build"
-colcon build --merge-install --metas ${COLCON_META} --cmake-args "--no-warn-unused-cli" -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN} -DCMAKE_VERBOSE_MAKEFILE=ON \
+colcon build --merge-install --metas ${COLCON_META} --cmake-args "--no-warn-unused-cli" -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN} -DCMAKE_VERBOSE_MAKEFILE=ON -DRCL_LOGGING_IMPLEMENTATION=rcl_logging_noop
 	
 
 echo "Adding build deps to bundle"
