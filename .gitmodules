@@ -88,3 +88,31 @@
 	path = src/ament/ament_index
 	url = https://github.com/ament/ament_index.git
 	branch = galactic
+[submodule "src/ros2/rosidl_defaults"]
+	path = src/ros2/rosidl_defaults
+	url = https://github.com/ros2/rosidl_defaults.git
+	branch = galactic
+[submodule "src/ros2/ament_cmake_ros"]
+	path = src/ros2/ament_cmake_ros
+	url = https://github.com/ros2/ament_cmake_ros.git
+	branch = galactic
+[submodule "src/ros2/yaml_cpp_vendor"]
+	path = src/ros2/yaml_cpp_vendor
+	url = https://github.com/ros2/yaml_cpp_vendor.git
+	branch = galactic
+[submodule "src/ros2/libyaml_vendor"]
+	path = src/ros2/libyaml_vendor
+	url = https://github.com/ros2/libyaml_vendor.git
+	branch = galactic
+[submodule "src/ros2/unique_identifier_msgs"]
+	path = src/ros2/unique_identifier_msgs
+	url = https://github.com/ros2/unique_identifier_msgs.git
+	branch = galactic
+[submodule "src/ros2/test_interface_files"]
+	path = src/ros2/test_interface_files
+	url = https://github.com/ros2/test_interface_files.git
+	branch = galactic
+[submodule "src/ros2/rmw_implementation"]
+	path = src/ros2/rmw_implementation
+	url = https://github.com/ros2/rmw_implementation.git
+	branch = galactic

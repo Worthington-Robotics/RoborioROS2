@@ -14,10 +14,14 @@ downloadDep(){
     wget -P ./downloads https://download.ni.com/ni-linux-rt/feeds/2019/arm/cortexa9-vfpv3/$1
     ar x ./downloads/$1
 
+    # Setup default arg for this function
     if [[ -z $2 ]]; then
-        2="xz"
+        EXT=gz
+    else
+        EXT=$2
     fi
-    tar xf ./data.tar.$2
+
+    tar xf ./data.tar.${EXT}
 }
 
 pushd ${WPI_DIR}/roborio/${ARM_PREFIX} > /dev/null
@@ -49,6 +53,9 @@ pushd ${WPI_DIR}/roborio/${ARM_PREFIX} > /dev/null
     downloadDep "acl-dbg_2.2.52-r0.183_cortexa9-vfpv3.ipk"
     downloadDep "acl-dev_2.2.52-r0.183_cortexa9-vfpv3.ipk"
     downloadDep "libacl1_2.2.52-r0.183_cortexa9-vfpv3.ipk"
+
+    # get libattr
+    downloadDep "libattr1_2.4.47-r0.513_cortexa9-vfpv3.ipk"
 
     #get python3
     #downloadDep "python3-core_3.5.5-r1.0.51_cortexa9-vfpv3.ipk"
