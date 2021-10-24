@@ -6,7 +6,7 @@ export COLCON_META=$(pwd)/colcon.meta
 export YEAR=2021
 export ARM_PREFIX=arm-frc${YEAR}-linux-gnueabi
 export CROSS_ROOT=${HOME}/wpilib/${YEAR}/roborio/${ARM_PREFIX}
-export DDS_IMPL=FastRTPS
+export DDS_IMPL=CycloneDDS
 
 # pull in cross root deps and compilier
 echo "Confirguring cross compile sysroot"
@@ -47,6 +47,9 @@ pushd ./extra_libs > /dev/null
 
 	# get libcrypto
 	downloadDep "libcrypto1.0.2_1.0.2o-r0.16_cortexa9-vfpv3.ipk"
+
+	# get bison
+	downloadDep "bison_3.0.4-r0.256_cortexa9-vfpv3.ipk"
 
 popd >/dev/null
 

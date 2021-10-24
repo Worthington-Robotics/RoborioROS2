@@ -25,10 +25,21 @@ pushd $(pwd)/src > /dev/null
         touch ./eclipse-cyclonedds/COLCON_IGNORE
         touch ./eclipse-iceoryx/COLCON_IGNORE
         touch ./ros2/rmw_cyclonedds/COLCON_IGNORE
+
+        #remove fastrtps ignores
+        rm ./eprosima/COLCON_IGNORE
+        rm ./ros2/rmw_fastrtps/COLCON_IGNORE
+        rm ./ros2/rosidl_typesupport_fastrtps/COLCON_IGNORE
     else
         # ignore rtps and its deps
         touch ./eprosima/COLCON_IGNORE
         touch ./ros2/rmw_fastrtps/COLCON_IGNORE
+        touch ./ros2/rosidl_typesupport_fastrtps/COLCON_IGNORE
+
+        #remove cyclonedds ignores
+        rm ./eclipse-cyclonedds/COLCON_IGNORE
+        rm ./eclipse-iceoryx/COLCON_IGNORE
+        rm ./ros2/rmw_cyclonedds/COLCON_IGNORE
     fi
 
 popd > /dev/null

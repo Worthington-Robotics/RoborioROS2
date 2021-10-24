@@ -8,7 +8,7 @@ pushd ${CYC_HOST_DIR}/build > /dev/null
 
     echo "Building cyclonedds for host"
 
-    cmake -DCMAKE_INSTALL_PREFIX=$(pwd) -DBUILD_EXAMPLES=OFF -DENABLE_SSL=NO ..
+    cmake -DCMAKE_INSTALL_PREFIX=$(pwd) -DBUILD_EXAMPLES=OFF ..
 
     cmake --build .
 
