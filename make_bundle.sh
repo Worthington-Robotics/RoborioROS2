@@ -19,6 +19,7 @@ downloadDep(){
 }
 
 #TODO Rework this to pull in from lib in cross root
+rm -rf extra_libs
 mkdir extra_libs
 pushd ./extra_libs > /dev/null
 	# get ssl
@@ -50,5 +51,6 @@ popd >/dev/null
 cp extra_libs/usr/lib/* install/lib/	# for most libs
 cp extra_libs/lib/* install/lib/		# for some libs
 
+rm rclcpp_rio.tar
 
-tar cf rclcpp_rio.tar ./install
+tar chf rclcpp_rio.tar ./install
