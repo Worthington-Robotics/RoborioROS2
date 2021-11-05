@@ -20,8 +20,6 @@ downloadDep(){
     tar xf ./data.tar.${EXT}
 }
 
-export -f downloadDep
-
 pushd ${CROSS_ROOT} > /dev/null
 
     rm -rf ./downloads
