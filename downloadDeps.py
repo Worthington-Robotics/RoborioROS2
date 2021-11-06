@@ -148,15 +148,14 @@ def downloadFiles(names: str, localDir: str, remoteBaseUrl: str = remoteUrl):
         try:
             # rip the ipk open
             # open the ipk and get its contents into the current dir
-            tar = tarfile.open(os.path.join(localDir, "downloads", filename))
-            tar.extractall(path = os.path.join(localDir, "downloads"))
-            tar.close()
-
+            file = os.path.join(localDir, "downloads", filename)
+            unpackDir = os.path.join(localDir, "downloads")
+            shutil.unpack_archive(file, unpackDir, "tar")
+            
             # rip the data.tar archive open
             # open it from downloads and dump it into the local dir
-            tar = tarfile.open(os.path.join(localDir, "downloads", "data.tar.gz"))
-            tar.extractall(path = localDir)
-            tar.close()
+            file = os.path.join(localDir, "downloads", "data.tar.gz")
+            shutil.unpack_archive(file, localDir, "gztar")
 
             logging.info("Unarchived {} successfully".format(filename))
 
