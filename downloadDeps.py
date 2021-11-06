@@ -40,7 +40,7 @@ buildDeps = {
     ],
     "links" : [ # tuples of target (links to) and source (the link)
         # create symlink for pthread to pthreads (fixes fastrtps being dumb)
-        ("lib/libpthread.so.0", "lib/libpthreads.so")
+        ("usr/lib/libpthreads.so", "usr/lib/libpthread.so")
     ]
 
 }
@@ -62,8 +62,7 @@ deployDeps = {
 
         # get python 3.5
         "libpython3.5m1.0_3.5.5-r1.0.19_cortexa9-vfpv3.ipk",
-        "python3-core_3.5.5-r1.0.51_cortexa9-vfpv3.ipk",
-        "python3-dev_3.5.5-r1.0.19_cortexa9-vfpv3.ipk",
+        "python3-core_3.5.5-r1.0.19_cortexa9-vfpv3.ipk",
 
         # get ACL 
         "acl_2.2.52-r0.183_cortexa9-vfpv3.ipk",
@@ -101,16 +100,17 @@ class Downloader(threading.Thread):
     def run(self):
         while True:
             download_url, save_as, local_dir = self.queue.get()
-            # sentinal
+            
+            # make sure next item is valid
             if not download_url:
                 self.complete = True
                 return
             try:
-                urllib.urlretrieve(download_url, filename=os.path.join(local_dir, "downloads", save_as))
-                logging.info("Downloaded %s sucessfully" % download_url)
+                urllib.request.urlretrieve(download_url, filename=os.path.join(local_dir, "downloads", save_as))
+                logging.info("Downloaded {} successfully".format(download_url))
 
             except Exception as e:
-                logging.warn("error downloading %s: %s" % (download_url, e))
+                logging.warning("error downloading {} : {}".format(download_url, e))
 
     def isComplete(self):
         return self.complete
@@ -122,20 +122,25 @@ def downloadFiles(names: str, localDir: str, remoteBaseUrl: str = remoteUrl):
         threads.append(Downloader(queue)) # spawn downloaders
         threads[-1].start()
 
+    # Make sure downloads dir exists
+    if(not os.path.exists(os.path.join(localDir, "downloads"))):
+        os.mkdir(os.path.join(localDir, "downloads"))
+
     for name in names:
         url = remoteBaseUrl + name
         filename = name
-        print("Download %s as %s" % (url, filename, localDir))
-        queue.put((url, filename))
+        print("Downloading {} as {}".format(url, filename))
+        queue.put((url, filename, localDir))
 
     for i in range(numParallelDownloads):
-        queue.put((None, None))
+        queue.put((None, None, None))
 
     # Wait for downloads to complete
-    complete = False
+    complete = True
     while(not complete):
+        complete = True
         for downloader in threads:
-            complete = complete or downloader.isComplete()
+            complete = complete and downloader.isComplete()
     
     print("All files downloaded, unarchiving")
 
@@ -153,23 +158,26 @@ def downloadFiles(names: str, localDir: str, remoteBaseUrl: str = remoteUrl):
             tar.extractall(path = localDir)
             tar.close()
 
-            logging.info("Unarchived %s sucessfully" % filename)
+            logging.info("Unarchived {} successfully".format(filename))
 
         except Exception as e:
-            logging.warn("error unarchiving %s: %s" % (filename, e))
+            logging.warning("error unarchiving {} : {}".format(filename, e))
 
 def makeLinks(links, localDir: str):
     for link in links:
         target = os.path.join(localDir, link[0])
         source = os.path.join(localDir, link[1])
-        os.symlink(source, target)
+        # print(source)
+        # print(os.path.islink(source) , os.path.isfile(source))
+        if(not (os.path.islink(source) or os.path.isfile(source))):
+            os.symlink(source, target)
         
 
 
 
 if __name__ == "__main__":
     # Common vars used in path
-    USER_HOME = print(os.path.expanduser('~'))
+    USER_HOME = os.path.expanduser('~')
     YEAR = str(datetime.date(datetime.now()).year)
     ARM_PREFIX = "arm-frc{}-linux-gnueabi".format(YEAR)
     CROSS_ROOT = os.path.join(USER_HOME, "wpilib", YEAR, "roborio", ARM_PREFIX)
@@ -180,12 +188,9 @@ if __name__ == "__main__":
     buildDepsDir = CROSS_ROOT
     if(not os.path.exists(buildDepsDir)):
         os.mkdir(buildDepsDir)
-    else:
-        shutil.rmtree(buildDepsDir)
-        os.mkdir(buildDepsDir)
 
-    downloadFiles(buildDeps.files, buildDepsDir)
-    makeLinks(buildDeps.links, buildDepsDir)
+    downloadFiles(buildDeps["files"], buildDepsDir)
+    makeLinks(buildDeps["links"], buildDepsDir)
 
     print("All CC deps downloaded")
 
@@ -199,7 +204,7 @@ if __name__ == "__main__":
         shutil.rmtree(deployDepDir)
         os.mkdir(deployDepDir)
 
-    downloadFiles(deployDeps.files, deployDepDir)
-    makeLinks(deployDeps.links, deployDepDir)
+    downloadFiles(deployDeps["files"], deployDepDir)
+    makeLinks(deployDeps["links"], deployDepDir)
     print("All deploy deps downloaded")
 
