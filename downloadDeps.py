@@ -35,7 +35,7 @@ buildDeps = {
         "libattr1_2.4.47-r0.513_cortexa9-vfpv3.ipk",
 
         #get python3
-        #"python3-core_3.5.5-r1.0.51_cortexa9-vfpv3.ipk",
+        "libpython3.5m1.0_3.5.5-r1.0.19_cortexa9-vfpv3.ipk",
         "python3-dev_3.5.5-r1.0.19_cortexa9-vfpv3.ipk"
     ],
     "links" : [ # tuples of target (links to) and source (the link)
@@ -89,7 +89,8 @@ import threading
 from queue import Queue
 from datetime import datetime
 import shutil
-import tarfile
+import time
+import subprocess
 
 class Downloader(threading.Thread):
     def __init__(self, queue):
@@ -139,25 +140,34 @@ def downloadFiles(names: str, localDir: str, remoteBaseUrl: str = remoteUrl):
     complete = True
     while(not complete):
         complete = True
+
         for downloader in threads:
             complete = complete and downloader.isComplete()
+
+        time.sleep(0.01)
     
     print("All files downloaded, unarchiving")
+    time.sleep(0.5)
 
     for filename in names:
         try:
+            # wait for fs to stabilize
+            time.sleep(0.1)
+
             # rip the ipk open
             # open the ipk and get its contents into the current dir
-            file = os.path.join(localDir, "downloads", filename)
+            archive = os.path.join(localDir, "downloads", filename)
             unpackDir = os.path.join(localDir, "downloads")
-            shutil.unpack_archive(file, unpackDir, "tar")
+            exitCode = subprocess.run(["ar", "x", archive, "--output={}".format(unpackDir)])
+            if(not exitCode.returncode == 0):
+                raise RuntimeError("ar failed with return code {}".format(exitCode))
             
             # rip the data.tar archive open
             # open it from downloads and dump it into the local dir
             file = os.path.join(localDir, "downloads", "data.tar.gz")
             shutil.unpack_archive(file, localDir, "gztar")
 
-            logging.info("Unarchived {} successfully".format(filename))
+            print("Unarchived {} successfully".format(filename))
 
         except Exception as e:
             logging.warning("error unarchiving {} : {}".format(filename, e))
@@ -190,6 +200,9 @@ if __name__ == "__main__":
 
     downloadFiles(buildDeps["files"], buildDepsDir)
     makeLinks(buildDeps["links"], buildDepsDir)
+
+    #shutil.register_unpack_format("ipk", [".ipk"], )
+    #print(shutil.get_archive_formats())
 
     print("All CC deps downloaded")
 

@@ -10,7 +10,7 @@ export DDS_IMPL=CycloneDDS
 
 # pull in cross root deps and compilier
 echo "Confirguring cross compile sysroot"
-source ./download_deps.sh
+python3 ./downloadDeps.py
 
 echo "Configuring the installation"
 ./mark_ignore_deps.sh
