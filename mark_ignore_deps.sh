@@ -7,14 +7,12 @@ fi
 
 pushd $(pwd)/src > /dev/null
 
-    touch ./ros2/rcl/rcl_action/COLCON_IGNORE
     touch ./ros2/rcl/rcl_lifecycle/COLCON_IGNORE
 
     touch ./ros2/rcl_logging/rcl_logging_log4cxx/COLCON_IGNORE
     touch ./ros2/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE
     touch ./ros2/spdlog_vendor/COLCON_IGNORE
 
-    touch ./ros2/rclcpp/rclcpp_action/COLCON_IGNORE
     touch ./ros2/rclcpp/rclcpp_lifecycle/COLCON_IGNORE
     touch ./ros2/rclcpp/rclcpp_components/COLCON_IGNORE
 
