@@ -187,7 +187,8 @@ def makeLinks(links, localDir: str):
 if __name__ == "__main__":
     # Common vars used in path
     USER_HOME = os.path.expanduser('~')
-    YEAR = str(datetime.date(datetime.now()).year)
+    #TODO Remove the -1 on the year once wpilib releases full 2022
+    YEAR = str(datetime.date(datetime.now()).year -1) # temporary hack because we haven't gotten the season release for 22
     ARM_PREFIX = "arm-frc{}-linux-gnueabi".format(YEAR)
     CROSS_ROOT = os.path.join(USER_HOME, "wpilib", YEAR, "roborio", ARM_PREFIX)
     CWD = os.getcwd()
