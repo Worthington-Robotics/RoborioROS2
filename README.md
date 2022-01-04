@@ -11,8 +11,15 @@ git submodule init
 git submodule update
 ```
 4. You can now add any additional packages (like message libraries you wish to use).
-5. Make sure the host computer has a working installation of ros and colcon.
-6. Open a terminal session that does not have any version of ros currently sourced. This is crucial as we cannot pull in the host builds of all the libraries for the roborio build. This can be accomplished by removing the `source /opt/ros/<version>/setup.bash` from your `~/.bashrc` and opening a new terminal session.
+5. In rclcpp_components, modify the (CMakeLists.txt)[] anc omment out the following lines. In the current release they are lines 64 - 67
+```
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  target_link_libraries(component_container "stdc++fs")
+  target_link_libraries(component_container_mt "stdc++fs")
+endif()
+```
+6. Make sure the host computer has a working installation of ros and colcon.
+7. Open a terminal session that does not have any version of ros currently sourced. This is crucial as we cannot pull in the host builds of all the libraries for the roborio build. This can be accomplished by removing the `source /opt/ros/<version>/setup.bash` from your `~/.bashrc` and opening a new terminal session.
 
 ## Building
 There are 3 main scripts that control the building of rclcpp for the roborio. `build.sh`, which orchestrates the whole building process. `download_deps.sh`, which handles downloading dependencies for the roborio and adding them to the cross compilation root. And `mark_ignore_deps.sh`, which creates `COLCON_IGNORE` files on all unnecessary packages needed for running rclcpp on the rio. This is the one that may need additional changes for any additional libraries you may want to introduce. There are two other important files, `rio_toolchain.cmake` and `colcon.meta`. `rio_toolchain.cmake` is the toolchain file which cmake uses to produce the library. this points to the rio compiler for the given year. `colcon.meta` is a configuration file for colcon which allows it to turn on and off certain configuration variables based on what packages it is building. this file should not need to be modified. 
