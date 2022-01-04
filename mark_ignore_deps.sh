@@ -18,6 +18,10 @@ pushd $(pwd)/src > /dev/null
 
     touch ./ros2_tracing/ros2_tracing/tracetools_test/COLCON_IGNORE
 
+    # ignore our local packages
+    touch ./worbots/LimelightROS2/limelight_driver/COLCON_IGNORE
+    touch ./worbots/RosPathGen/rospathgen/COLCON_IGNORE
+
     if [[ "$DDS_IMPL" == *FastRTPS* ]]; then
         # ignore cyclone and its deps
         touch ./eclipse-cyclonedds/COLCON_IGNORE

@@ -159,3 +159,9 @@
 	path = src/ros2/console_bridge_vendor
 	url = https://github.com/ros2/console_bridge_vendor.git
 	branch = galactic
+[submodule "src/worbots/RosPathGen"]
+	path = src/worbots/RosPathGen
+	url = https://github.com/Worthington-Robotics/RosPathGen.git
+[submodule "src/worbots/LimelightROS2"]
+	path = src/worbots/LimelightROS2
+	url = https://github.com/Worthington-Robotics/LimelightROS2.git
