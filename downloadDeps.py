@@ -1,42 +1,42 @@
 buildDeps = {
     "files": [
         # get Bison
-        "bison_3.0.4-r0.256_cortexa9-vfpv3.ipk",
-        "bison-dev_3.0.4-r0.256_cortexa9-vfpv3.ipk",
+        "bison",
+        "bison-dev",
 
         # get libssl
-        "libssl1.0.2_1.0.2o-r0.16_cortexa9-vfpv3.ipk",
+        "libssl1.0.2",
 
         # get openssl
-        "openssl_1.0.2o-r0.16_cortexa9-vfpv3.ipk",
-        "openssl-dev_1.0.2o-r0.16_cortexa9-vfpv3.ipk",
+        "openssl",
+        "openssl-dev",
 
         # get libstdc++ 
-        "libstdc++-dev_7.3.0-r0.16_cortexa9-vfpv3.ipk",
-        "libstdc++6_7.3.0-r0.16_cortexa9-vfpv3.ipk",
+        "libstdc++-dev",
+        "libstdc++6",
 
         # get libc
-        "libc6_2.24-r0.79_cortexa9-vfpv3.ipk",
-        "libc6-dev_2.24-r0.79_cortexa9-vfpv3.ipk",
-        "libc6-extra-nss_2.24-r0.79_cortexa9-vfpv3.ipk",
-        "linux-libc-headers-dev_4.15.7-r0.13_cortexa9-vfpv3.ipk",
-        "libcidn1_2.24-r0.79_cortexa9-vfpv3.ipk",
+        "libc6",
+        "libc6-dev",
+        "libc6-extra-nss",
+        "linux-libc-headers-dev",
+        "libcidn1",
 
         # get libcrypto
-        "libcrypto1.0.2_1.0.2o-r0.16_cortexa9-vfpv3.ipk",
+        "libcrypto1.0.2",
 
         # get acl 
-        "acl_2.2.52-r0.183_cortexa9-vfpv3.ipk",
-        "acl-dbg_2.2.52-r0.183_cortexa9-vfpv3.ipk",
-        "acl-dev_2.2.52-r0.183_cortexa9-vfpv3.ipk",
-        "libacl1_2.2.52-r0.183_cortexa9-vfpv3.ipk",
+        "acl",
+        "acl-dbg",
+        "acl-dev",
+        "libacl1",
 
         # get libattr
-        "libattr1_2.4.47-r0.513_cortexa9-vfpv3.ipk",
+        "libattr1",
 
         #get python3
-        "libpython3.5m1.0_3.5.5-r1.0.19_cortexa9-vfpv3.ipk",
-        "python3-dev_3.5.5-r1.0.19_cortexa9-vfpv3.ipk"
+        "libpython3.5m1.0",
+        "python3-dev"
     ],
     "links" : [ # tuples of target (links to) and source (the link)
         # create symlink for pthread to pthreads (fixes fastrtps being dumb)
@@ -49,27 +49,27 @@ buildDeps = {
 deployDeps = {
     "files": [
         # get ssl
-        "libssl1.0.2_1.0.2o-r0.16_cortexa9-vfpv3.ipk",
+        "libssl1.0.2",
 
         # get openssl
-        "openssl_1.0.2o-r0.16_cortexa9-vfpv3.ipk",
+        "openssl",
 
         # get libcrypto
-        "libcrypto1.0.2_1.0.2o-r0.16_cortexa9-vfpv3.ipk",
+        "libcrypto1.0.2",
 
         # get bison
-        "bison_3.0.4-r0.256_cortexa9-vfpv3.ipk",
+        "bison",
 
         # get python 3.5
-        "libpython3.5m1.0_3.5.5-r1.0.19_cortexa9-vfpv3.ipk",
-        "python3-core_3.5.5-r1.0.19_cortexa9-vfpv3.ipk",
+        "libpython3.5m1.0",
+        "python3-core",
 
         # get ACL 
-        "acl_2.2.52-r0.183_cortexa9-vfpv3.ipk",
-        "libacl1_2.2.52-r0.183_cortexa9-vfpv3.ipk",
+        "acl",
+        "libacl1",
 
         # get libattr
-        "libattr1_2.4.47-r0.513_cortexa9-vfpv3.ipk"
+        "libattr1"
     ],
     "links" : [
 
@@ -77,20 +77,82 @@ deployDeps = {
 
 }
 
+'''
+buildDeps = {
+    "files": [
+        "bison"
+    ],
+    "links" : [ # tuples of target (links to) and source (the link)
+    ]
+}
 
-remoteUrl = "https://download.ni.com/ni-linux-rt/feeds/2019/arm/cortexa9-vfpv3/"
+deployDeps = {
+    "files": [
+
+    ],
+    "links" : [ # tuples of target (links to) and source (the link)
+
+    ]
+} 
+'''  
+
+
+remoteUrl = "https://download.ni.com/ni-linux-rt/feeds/2021.3/arm/main/cortexa9-vfpv3/"
+packageUrl = "https://download.ni.com/ni-linux-rt/feeds/2021.3/arm/main/cortexa9-vfpv3/Packages"
 
 numParallelDownloads = 10
 
+import queue
 import urllib.request
 import os
 import logging
 import threading
-from queue import Queue
+from queue import Empty, Queue
 from datetime import datetime
 import shutil
 import time
 import subprocess
+import yaml
+
+def singleDownload(download_url, save_as, local_dir):
+    # make sure next item is valid
+    try:
+        if not download_url or not local_dir or not save_as:
+            raise RuntimeError("Missing an argument to download")
+
+        absFileName = os.path.join(local_dir, "downloads", save_as)
+        urllib.request.urlretrieve(download_url, filename = absFileName)
+        logging.warning("Downloaded {} successfully as {}".format(download_url, absFileName))
+        return True
+
+    except Exception as e:
+        logging.warning("error downloading {} : {}".format(download_url, e))
+        return False
+
+def getPackageDef(name, localDir):
+    pkgFile = os.path.join(localDir, "downloads", "Packages")
+    with open(pkgFile) as packageFile:
+        start = -1
+        parseData = ""
+        for num, line in enumerate(packageFile, 1):
+            if(start >= 0):
+                parseData += line
+
+            if("Package: {}\n".format(name) == line):
+                start = num
+                parseData += line
+                #print("discovered package def")
+
+            if(start >= 0 and "Priority:" in line):
+                data = yaml.safe_load(parseData)
+                return data 
+
+            #if("Package: {}\n".format(name) in line):
+            #        print("'" + line + "'")
+    
+    logging.error("error finding package {} in file: {}".format(name, pkgFile))
+    return {}
+    
 
 class Downloader(threading.Thread):
     def __init__(self, queue):
@@ -99,42 +161,43 @@ class Downloader(threading.Thread):
         self.complete = False
 
     def run(self):
-        while True:
-            download_url, save_as, local_dir = self.queue.get()
-            
-            # make sure next item is valid
-            if not download_url:
-                self.complete = True
-                return
-            try:
-                urllib.request.urlretrieve(download_url, filename=os.path.join(local_dir, "downloads", save_as))
-                logging.info("Downloaded {} successfully".format(download_url))
-
-            except Exception as e:
-                logging.warning("error downloading {} : {}".format(download_url, e))
+        try:
+            while True:
+                download_url, save_as, local_dir = self.queue.get(False)
+                singleDownload(download_url, save_as, local_dir)
+        except queue.Empty:
+            self.complete = True
+            return
+        except Exception as e:
+            logging.warning("error downloading resource: {}".format(e))
+            self.run()
+        
 
     def isComplete(self):
         return self.complete
 
 def downloadFiles(names: str, localDir: str, remoteBaseUrl: str = remoteUrl):
     queue = Queue()
-    threads = []
-    for i in range(numParallelDownloads):
-        threads.append(Downloader(queue)) # spawn downloaders
-        threads[-1].start()
 
     # Make sure downloads dir exists
     if(not os.path.exists(os.path.join(localDir, "downloads"))):
         os.mkdir(os.path.join(localDir, "downloads"))
 
+    # download the index first
+    singleDownload(packageUrl, "Packages", localDir)
+
     for name in names:
-        url = remoteBaseUrl + name
+        data = getPackageDef(name, localDir)
+        #print(data)
+        url = remoteBaseUrl + data["Filename"]
         filename = name
-        print("Downloading {} as {}".format(url, filename))
         queue.put((url, filename, localDir))
 
+    # Start downloads
+    threads = []
     for i in range(numParallelDownloads):
-        queue.put((None, None, None))
+        threads.append(Downloader(queue)) # spawn downloaders
+        threads[-1].start()
 
     # Wait for downloads to complete
     complete = True
@@ -164,13 +227,13 @@ def downloadFiles(names: str, localDir: str, remoteBaseUrl: str = remoteUrl):
             
             # rip the data.tar archive open
             # open it from downloads and dump it into the local dir
-            file = os.path.join(localDir, "downloads", "data.tar.gz")
+            file = os.path.join(localDir, "downloads", "data.tar.xz")
             shutil.unpack_archive(file, localDir, "gztar")
 
             print("Unarchived {} successfully".format(filename))
 
         except Exception as e:
-            logging.warning("error unarchiving {} : {}".format(filename, e))
+            logging.error("error unarchiving {} : {}".format(filename, e))
 
 def makeLinks(links, localDir: str):
     for link in links:
@@ -187,8 +250,7 @@ def makeLinks(links, localDir: str):
 if __name__ == "__main__":
     # Common vars used in path
     USER_HOME = os.path.expanduser('~')
-    #TODO Remove the -1 on the year once wpilib releases full 2022
-    YEAR = str(datetime.date(datetime.now()).year -1) # temporary hack because we haven't gotten the season release for 22
+    YEAR = str(datetime.date(datetime.now()).year)
     ARM_PREFIX = "arm-frc{}-linux-gnueabi".format(YEAR)
     CROSS_ROOT = os.path.join(USER_HOME, "wpilib", YEAR, "roborio", ARM_PREFIX)
     CWD = os.getcwd()
