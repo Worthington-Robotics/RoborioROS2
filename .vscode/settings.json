@@ -1,0 +1,8 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/coalman321/osu-uwrt/dependencies/install/lib/python3/dist-packages",
+        "/home/coalman321/osu-uwrt/dependencies/MYNT/wrappers/ros/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/coalman321/osu-uwrt/riptide_software/devel/lib/python3/dist-packages"
+    ]
+}

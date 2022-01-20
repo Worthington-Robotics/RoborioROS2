@@ -77,26 +77,6 @@ deployDeps = {
 
 }
 
-'''
-buildDeps = {
-    "files": [
-        "bison"
-    ],
-    "links" : [ # tuples of target (links to) and source (the link)
-    ]
-}
-
-deployDeps = {
-    "files": [
-
-    ],
-    "links" : [ # tuples of target (links to) and source (the link)
-
-    ]
-} 
-'''  
-
-
 remoteUrl = "https://download.ni.com/ni-linux-rt/feeds/2021.3/arm/main/cortexa9-vfpv3/"
 packageUrl = "https://download.ni.com/ni-linux-rt/feeds/2021.3/arm/main/cortexa9-vfpv3/Packages"
 
@@ -122,7 +102,7 @@ def singleDownload(download_url, save_as, local_dir):
 
         absFileName = os.path.join(local_dir, "downloads", save_as)
         urllib.request.urlretrieve(download_url, filename = absFileName)
-        logging.warning("Downloaded {} successfully as {}".format(download_url, absFileName))
+        logging.info("Downloaded {} successfully as {}".format(download_url, absFileName))
         return True
 
     except Exception as e:

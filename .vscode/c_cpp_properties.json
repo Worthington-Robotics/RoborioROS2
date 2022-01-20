@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/coalman321/osu-uwrt/dependencies/install/include/**",
+        "/home/coalman321/osu-uwrt/dependencies/MYNT/wrappers/ros/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/coalman321/osu-uwrt/riptide_software/devel/include/**",
+        "/home/coalman321/osu-uwrt/riptide_software/src/riptide_autonomy/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

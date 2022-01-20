@@ -3,7 +3,7 @@
 # constants used for build
 export TOOLCHAIN=$(pwd)/rio_toolchain.cmake
 export COLCON_META=$(pwd)/colcon.meta
-export YEAR=2021
+export YEAR=2022
 export ARM_PREFIX=arm-frc${YEAR}-linux-gnueabi
 export CROSS_ROOT=${HOME}/wpilib/${YEAR}/roborio/${ARM_PREFIX}
 export DDS_IMPL=CycloneDDS

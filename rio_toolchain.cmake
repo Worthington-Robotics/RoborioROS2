@@ -1,5 +1,5 @@
 ##configuration
-set(YEAR 2021)
+set(YEAR 2022)
 
 # Set system definitions
 SET(CMAKE_SYSTEM_NAME Linux)
@@ -19,10 +19,10 @@ set(CMAKE_SYSROOT ${WPI_DIR}/roborio/${ARM_PREFIX})
 # Use a relative dir to get to the compilier
 set(COMPILIER_DIR ${WPI_DIR}/roborio/bin/)
 
-find_program(CMAKE_C_COMPILER NAMES arm-frc2021-linux-gnueabi-gcc PATHS ${COMPILIER_DIR})
-find_program(CMAKE_CXX_COMPILER NAMES arm-frc2021-linux-gnueabi-g++ PATHS ${COMPILIER_DIR})
-find_program(CMAKE_LINKER NAMES arm-frc2021-linux-gnueabi-gcc PATHS ${COMPILIER_DIR})
-find_program(CMAKE_AR NAMES arm-frc2021-linux-gnueabi-ar PATHS ${COMPILIER_DIR})
+find_program(CMAKE_C_COMPILER NAMES arm-frc${YEAR}-linux-gnueabi-gcc PATHS ${COMPILIER_DIR})
+find_program(CMAKE_CXX_COMPILER NAMES arm-frc${YEAR}-linux-gnueabi-g++ PATHS ${COMPILIER_DIR})
+find_program(CMAKE_LINKER NAMES arm-frc${YEAR}-linux-gnueabi-gcc PATHS ${COMPILIER_DIR})
+find_program(CMAKE_AR NAMES arm-frc${YEAR}-linux-gnueabi-ar PATHS ${COMPILIER_DIR})
 
 # message("Got C compilier at ${CMAKE_C_COMPILER}")
 # message("Got CXX compilier at ${CMAKE_CXX_COMPILER}")

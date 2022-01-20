@@ -4,6 +4,8 @@ CYC_HOST_DIR=$(pwd)/cyclone_host/cyclonedds
 
 mkdir ${CYC_HOST_DIR}/build
 
+sudo apt install bison -y
+
 pushd ${CYC_HOST_DIR}/build > /dev/null
 
     echo "Building cyclonedds for host"
