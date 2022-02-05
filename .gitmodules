@@ -165,3 +165,6 @@
 [submodule "src/worbots/LimelightROS2"]
 	path = src/worbots/LimelightROS2
 	url = https://github.com/Worthington-Robotics/LimelightROS2.git
+[submodule "src/worbots/AutonomousBehaviorTree"]
+	path = src/worbots/AutonomousBehaviorTree
+	url = https://github.com/Worthington-Robotics/AutonomousBehaviorTree.git

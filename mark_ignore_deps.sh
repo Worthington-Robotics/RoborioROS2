@@ -21,6 +21,7 @@ pushd $(pwd)/src > /dev/null
     # ignore our local packages
     touch ./worbots/LimelightROS2/limelight_driver/COLCON_IGNORE
     touch ./worbots/RosPathGen/rospathgen/COLCON_IGNORE
+    touch ./worbots/AutonomousBehaviorTree/autonomous_behavior_tree/COLCON_IGNORE
 
     if [[ "$DDS_IMPL" == *FastRTPS* ]]; then
         # ignore cyclone and its deps
