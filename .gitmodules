@@ -168,3 +168,6 @@
 [submodule "src/worbots/AutonomousBehaviorTree"]
 	path = src/worbots/AutonomousBehaviorTree
 	url = https://github.com/Worthington-Robotics/AutonomousBehaviorTree.git
+[submodule "src/worbots/robotTool"]
+	path = src/worbots/robotTool
+	url = https://github.com/Worthington-Robotics/robotTool.git
